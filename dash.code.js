@@ -75,6 +75,12 @@ NewOtherBlock(args) {
       "arguments": OtherBlocksByShaman2016.info[OtherBlocksByShaman2016.list.length].args,
     }
   )
+  OtherBlocksByShaman2016.cb[OtherBlocksByShaman2016.list.length] = function(args) {
+    // пока что пусто
+  }
+}
+Opredelit(args) {
+  return OtherBlocksByShaman2016.isRun[args.id]
 }
 GetIdOB() {
   return OtherBlocksByShaman2016.list.length
