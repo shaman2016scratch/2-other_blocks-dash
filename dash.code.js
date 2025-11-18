@@ -24,7 +24,8 @@
       hat: Scratch.BlockType.HAT,
       label: Scratch.BlockType.LABEL,
     },
-    isRun: {}
+    isRun: {},
+    bodies: {},
   }
   OtherBlocksByShaman2016.blocks = {
     id: "OtherBlocksByShaman2016",
@@ -75,26 +76,31 @@
       return OtherBlocksByShaman2016.blocks;
     }
 NewOtherBlock(args) {
-  OtherBlocksByShaman2016.list.push('New')
-  OtherBlocksByShaman2016.info[OtherBlocksByShaman2016.list.length] = {
-    "name": args.name,
-    "args": args.args,
-    "type": args.type,
+  const id = OtherBlocksByShaman2016.list.length + 1;
+  OtherBlocksByShaman2016.info[id] = {
+    name: args.name,
+    args: JSON.parse(args.args),
+    type: args.type,
+    id: id
   }
-  OtherBlocksByShaman2016.blocks.blocks.push(
-    {
-      "opcode": `OtherBlocksByShaman2016.cb[${OtherBlocksByShaman2016.list.length}]`,
-      "blockType": OtherBlocksByShaman2016.types[OtherBlocksByShaman2016.info[OtherBlocksByShaman2016.list.length].type],
-      "text": OtherBlocksByShaman2016.info[OtherBlocksByShaman2016.list.length].name,
-      "arguments": OtherBlocksByShaman2016.info[OtherBlocksByShaman2016.list.length].args,
+  OtherBlocksByShaman2016.blocks.blocks.push({
+    opcode: `callFunction_${id}`,
+    blockType: OtherBlocksByShaman2016.types[args.type],
+    text: args.name,
+    arguments: OtherBlocksByShaman2016.info[id].args
+  })
+  OtherBlocksByShaman2016.cb[`callFunction_${id}`] = (callArgs) => {
+    if (!OtherBlocksByShaman2016.bodies[id]) {
+      throw new Error(`Функция с id=${id} не определена (нет Opredelit)`);
     }
-  )
-  OtherBlocksByShaman2016.cb[OtherBlocksByShaman2016.list.length] = function(args) {
-    // пока что пусто
-  }
+  };
+
+  OtherBlocksByShaman2016.list.push(id);
 }
 Opredelit(args) {
-  return OtherBlocksByShaman2016.isRun[args.id]
+  const id = args.id;
+  OtherBlocksByShaman2016.bodies[id] = true;
+  return true;
 }
 GetIdOB() {
   return OtherBlocksByShaman2016.list.length
