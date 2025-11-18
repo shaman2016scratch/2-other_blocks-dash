@@ -3,13 +3,15 @@
 // Description: Extension for Other blocks 2.0
 // By: shaman2016 <https://scratch.mit.edu/users/shaman2016/>
 // License: MIT
+// Version: 1.0
 
 (function (Scratch) {
-    "use strict";
+  "use strict";
 
   if (!Scratch.extensions.unsandboxed) {
     throw new Error("This Extension must run unsandboxed");
   }
+  OtherBlocksByShaman2016 = {}
   OtherBlocksByShaman2016.blocks = {
     id: "OtherBlocksByShaman2016",
     name: "Other blocks 2.0",
@@ -34,13 +36,30 @@
           },
         },
       },
+      {
+        opcode: "Opredelit",
+        blockType: Scratch.BlockType.HAT,
+        text: "defune [id]",
+        arguments: {
+          id: {
+            defaultValue: "1",
+            type: Scratch.ArgumentType.STRING,
+          },
+        },
+      },
+      {
+        opcode: "GetIdOB",
+        blockType: Scratch.BlockType.REPORTER,
+        text: "Get the ID of the last other block",
+        arguments: {},
+      },
     ],
   }
 
-    class OtherBlocks {
-      getInfo() {
-        return OtherBlocksByShaman2016.blocks;
-      }
+  class OtherBlocks {
+    getInfo() {
+      return OtherBlocksByShaman2016.blocks;
+    }
 NewOtherBlock(args) {
   OtherBlocksByShaman2016.list.push('New')
   OtherBlocksByShaman2016.info[OtherBlocksByShaman2016.list.length] = {
@@ -57,6 +76,9 @@ NewOtherBlock(args) {
     }
   )
 }
-    }
-    Scratch.extensions.register(new OtherBlocks());
-  })(Scratch);
+GetIdOB() {
+  return OtherBlocksByShaman2016.list.length
+}
+  }
+  Scratch.extensions.register(new OtherBlocks());
+})(Scratch);
