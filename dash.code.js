@@ -11,7 +11,21 @@
   if (!Scratch.extensions.unsandboxed) {
     throw new Error("This Extension must run unsandboxed");
   }
-  OtherBlocksByShaman2016 = {}
+  OtherBlocksByShaman2016 = {
+    list: [],
+    info: {},
+    cb: {},
+    types: {
+      command: Scratch.BlockType.COMMAND,
+      reporter: Scratch.BlockType.REPORTER,
+      boolean: Scratch.BlockType.BOOLEAN,
+      array: Scratch.BlockType.ARRAY,
+      object: Scratch.BlockType.OBJECT,
+      hat: Scratch.BlockType.HAT,
+      label: Scratch.BlockType.LABEL,
+    },
+    isRun: {}
+  }
   OtherBlocksByShaman2016.blocks = {
     id: "OtherBlocksByShaman2016",
     name: "Other blocks 2.0",
